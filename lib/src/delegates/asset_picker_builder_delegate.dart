@@ -2521,13 +2521,13 @@ class DefaultAssetPickerBuilderDelegate<T extends DefaultAssetPickerProvider>
             ),
             Row(
               children: <Widget>[
-                const Icon(Icons.calendar_month, size: 18, color: Colors.white),
+                const Icon(Icons.calendar_month, size: 17, color: Colors.white),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsetsDirectional.only(start: 4),
                     child: ScaleText(
                       parsedDateTime,
-                      style: const TextStyle(color: Colors.white, fontSize: 13),
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
                       strutStyle: const StrutStyle(
                         forceStrutHeight: true,
                         height: 1.4,
