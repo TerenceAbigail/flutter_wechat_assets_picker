@@ -710,7 +710,7 @@ abstract class AssetPickerBuilderDelegate<Asset, Path> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: IconButton(
-        onPressed: () => gridScrollController.jumpTo(0.0),
+        onPressed: () => gridScrollController.jumpTo(gridScrollController.position.maxScrollExtent),
         icon: const Icon(Icons.arrow_downward),
       ),
     );
@@ -721,7 +721,7 @@ abstract class AssetPickerBuilderDelegate<Asset, Path> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: IconButton(
-        onPressed: () => gridScrollController.jumpTo(gridScrollController.position.maxScrollExtent),
+        onPressed: () => gridScrollController.jumpTo(0.0),
         icon: const Icon(Icons.arrow_upward),
       ),
     );
