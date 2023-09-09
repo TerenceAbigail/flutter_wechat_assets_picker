@@ -705,24 +705,42 @@ abstract class AssetPickerBuilderDelegate<Asset, Path> {
     );
   }
 
-  /// Quickly go to the bottom.
-  Widget quickScrollDownButton(BuildContext context) {
+  /// Reverse asset list order.
+  Widget reverseAssetOrderButton(BuildContext context) {
+    final DefaultAssetPickerProvider provider = context.read<DefaultAssetPickerProvider>();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: IconButton(
-        onPressed: () => gridScrollController.jumpTo(gridScrollController.position.maxScrollExtent),
-        icon: const Icon(Icons.arrow_downward),
-      ),
-    );
-  }
-
-  /// Quickly go to the top.
-  Widget quickScrollUpButton(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: IconButton(
-        onPressed: () => gridScrollController.jumpTo(0.0),
-        icon: const Icon(Icons.arrow_upward),
+        onPressed: () {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (ctx) => AlertDialog(
+              title: Text('Changing order...'),
+            ),
+          ).then((_) => provider.currentAssets = provider.currentAssets.reversed.toList());
+          Future.delayed(Duration(seconds: 1), () {
+            Navigator.of(context).pop();
+          });
+        },
+        icon: const Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: Icon(
+                Icons.filter_alt,
+                color: Colors.green,
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Icon(
+                Icons.swap_vert_outlined,
+                size: 14,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -1235,7 +1253,7 @@ class DefaultAssetPickerBuilderDelegate<T extends DefaultAssetPickerProvider>
         child: pathEntitySelector(context),
       ),
       leading: backButton(context),
-      actions: [quickScrollUpButton(context), quickScrollDownButton(context)],
+      actions: [reverseAssetOrderButton(context)],
       blurRadius: isAppleOS(context) ? appleOSBlurRadius : 0,
     );
     appBarPreferredSize ??= appBar.preferredSize;
