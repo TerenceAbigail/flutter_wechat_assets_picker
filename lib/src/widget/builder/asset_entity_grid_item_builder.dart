@@ -20,8 +20,7 @@ class AssetEntityGridItemBuilder extends StatefulWidget {
   final WidgetBuilder failedItemBuilder;
 
   @override
-  AssetEntityGridItemWidgetState createState() =>
-      AssetEntityGridItemWidgetState();
+  AssetEntityGridItemWidgetState createState() => AssetEntityGridItemWidgetState();
 }
 
 class AssetEntityGridItemWidgetState extends State<AssetEntityGridItemBuilder> {
@@ -31,8 +30,7 @@ class AssetEntityGridItemWidgetState extends State<AssetEntityGridItemBuilder> {
     return ExtendedImage(
       image: widget.image,
       fit: BoxFit.cover,
-      loadStateChanged: (ExtendedImageState state) =>
-          switch (state.extendedImageLoadState) {
+      loadStateChanged: (ExtendedImageState state) => switch (state.extendedImageLoadState) {
         LoadState.loading => const ColoredBox(color: Color(0x10ffffff)),
         LoadState.completed => RepaintBoundary(child: state.completedWidget),
         LoadState.failed => widget.failedItemBuilder(context),
